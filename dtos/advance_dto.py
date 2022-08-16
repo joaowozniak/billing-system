@@ -58,4 +58,4 @@ class AdvanceDto:
 
             self.total_paid += amount
             self.to_be_paid -= amount
-            print(f"Updating advance {self.id} debt. Current: {self.to_be_paid}")
+            print(f"Updating advance {self.id} debt. Current: {round(self.to_be_paid,2)}")

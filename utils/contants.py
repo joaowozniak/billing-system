@@ -21,6 +21,6 @@ class Constants:
 
     START_DATE = datetime.date(2022, 1, 1)
 
-    END_DATE = datetime.date(2022, 2, 28)
+    END_DATE = datetime.date(2022, 1, 31)
 
     MAX_DAILY_CHARGES = 10000
