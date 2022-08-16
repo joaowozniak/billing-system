@@ -37,7 +37,7 @@ class LoadDataService:
     def update_mandates_advances(
         self, mandate_to_advances: dict, mandates: dict
     ) -> None:
-        # print("Updating customers advances...")
+        print("Updating customers advances...")
 
         for mandate_id, advs in mandate_to_advances.items():
             if mandate_id not in mandates.keys():
@@ -47,12 +47,12 @@ class LoadDataService:
 
     # TODO testing this service by mocking http requests
     def get_revenue_for_date(self, date: datetime.date, mandates: dict) -> None:
-        # print(f"Retrieving revenues...")
+        print(f"Retrieving revenues...")
 
         for cust in mandates.values():
             charging_dates = cust.dates_without_revenue[:]
             charging_dates.append(date - timedelta(1))
-            # print(f"Customer Id: {cust.id} missing revenue dates {charging_dates}")
+            print(f"Customer Id: {cust.id} missing revenue dates {charging_dates}")
             for charge_date in charging_dates[:]:
                 response = Utils.execute_get_request(
                     Constants.REVENUES_ENDPOINT(cust.id, str(charge_date)), str(date)
@@ -64,10 +64,10 @@ class LoadDataService:
                         RevenueDto(response.json()["amount"], charge_date)
                     )
                     charging_dates.remove(charge_date)
-                    # print("OK, days left: ", charging_dates)
+                    print("OK, days left: ", charging_dates)
                 else:
                     # print(response)
-                    # print("KO, days left: ", charging_dates)
+                    print("KO, days left: ", charging_dates)
                     pass
 
             cust.dates_without_revenue = charging_dates
