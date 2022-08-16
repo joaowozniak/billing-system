@@ -24,8 +24,8 @@ class Constants:
             f"https://billing.eng-test.wayflyer.com/v2/advances/{id}/billing_complete"
         )
 
-    START_DATE = datetime.date(2022, 4, 14)
+    START_DATE = datetime.date(2022, 1, 1)
 
-    END_DATE = datetime.date(2022, 4, 24)
+    END_DATE = datetime.date(2022, 6, 30)
 
     MAX_DAILY_CHARGES = 10000
