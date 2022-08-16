@@ -9,3 +9,5 @@ Lightweight billing system to charge customers through API
 
 ## Tests
 1. Run "billing_tests.py"
+
+Note: Tests coverage very low  
