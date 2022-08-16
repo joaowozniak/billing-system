@@ -26,10 +26,6 @@ class BillingService:
                     print("Max debit amount reached for advance ID:", advance.id)
                     debited_amount = Constants.MAX_DAILY_CHARGES
 
-                if debited_amount > rev_amount:
-                    print("Insufficient funds...")
-                    continue
-
                 print("Executing...")
                 metadata = json.dumps({"amount": str(debited_amount)})
                 # print(metadata)
