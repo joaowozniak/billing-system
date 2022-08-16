@@ -22,9 +22,11 @@ class BillingService:
                     "Amount to debit: ", debited_amount, "Revenue date: ", revenue.date
                 )
 
+                debit_complete = True
                 if debited_amount > Constants.MAX_DAILY_CHARGES:
                     print("Max debit amount reached for advance ID:", advance.id)
                     debited_amount = Constants.MAX_DAILY_CHARGES
+                    debit_complete = False
 
                 print("Executing...")
                 metadata = json.dumps({"amount": str(debited_amount)})
@@ -35,8 +37,12 @@ class BillingService:
 
                 if response:
                     print(response)
-                    revenue.debited = True
+                    
                     advance.pay_amount(date, debited_amount)
+                    if debit_complete: revenue.debited = True
+                    else: 
+                        amount_aux = float(revenue.amount) - debited_amount
+                        revenue.amount = str(amount_aux)
 
                 else:
                     print(
