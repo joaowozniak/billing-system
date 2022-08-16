@@ -7,14 +7,16 @@ from utils.contants import Constants
 
 
 class LoadDataService:
-    def get_advances(
-        self, date: datetime.date, advances_ids: set, mandate_to_advances: dict
-    ) -> None:
+    def get_advances(self, date: datetime.date):
         # print(f"Getting advances for: {date}")
 
         response = Utils.execute_get_request(
             Constants.ADVANCES_ENDPOINT, str(date)
         ).json()
+
+        return response
+
+    def load_advances(self, response, advances_ids: set, mandate_to_advances: dict):
 
         for adv in response["advances"]:
             if adv["id"] not in advances_ids:

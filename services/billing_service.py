@@ -19,7 +19,9 @@ class BillingService:
                 debited_amount = round(
                     rev_amount * advance.repayment_percentage / 100, 2
                 )
-                # print('Amount to debit: ', debited_amount, "Revenue date: ", revenue.date)
+                print(
+                    "Amount to debit: ", debited_amount, "Revenue date: ", revenue.date
+                )
 
                 if debited_amount > Constants.MAX_DAILY_CHARGES:
                     print("Max debit amount reached for advance ID:", advance.id)

@@ -18,25 +18,6 @@ import re
 class BillingTests(unittest.TestCase):
     def test(self):
         billing = LoadDataService()
-        self.responses = responses.RequestsMock()  # creating a mock object
-        self.responses.start()  # activate
-
-        with open("tests/tes.json", "r") as f:
-            data = f.read()
-            f.close()
-
-        self.responses.add(
-            GET, url=Constants.ADVANCES_ENDPOINT, body=data
-        )  # queue a response
-
-        # this line makes a request but is redirected to the queued response
-        resp = billing.get_advances("", set(), defaultdict(set))
-        print(resp)
-        self.assertIsNotNone(resp)
-
-        # deactivate (future requests will not redirected to our queued response)
-        self.addCleanup(self.responses.stop)
-        self.addCleanup(self.responses.reset)  # queued response is deleted
 
 
 if __name__ == "__main__":
