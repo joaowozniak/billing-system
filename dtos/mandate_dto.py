@@ -3,7 +3,6 @@ from .revenue_dto import RevenueDto
 
 
 class MandateDto:
-
     def __init__(self, id: int, advances: list):
 
         self.id = id
@@ -17,7 +16,7 @@ class MandateDto:
         for advance in self.advances:
             if str(day) >= advance.repayment_start_date and not advance.repaid:
                 active_advances.append(advance)
-                
+
         return active_advances
 
     def get_revenue_by_day(self, day: datetime.date) -> RevenueDto:
@@ -27,7 +26,7 @@ class MandateDto:
                 return revenue
 
         return None
-    
+
     def get_not_debited_revenues(self) -> list:
 
         non_debited_revenues = []
@@ -36,5 +35,3 @@ class MandateDto:
                 non_debited_revenues.append(revenue)
 
         return non_debited_revenues
-
-    

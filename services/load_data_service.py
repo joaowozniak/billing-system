@@ -7,24 +7,35 @@ from utils.contants import Constants
 
 
 class LoadDataService:
+    def get_advances(
+        self, date: datetime.date, advances_ids: set, mandate_to_advances: dict
+    ) -> None:
+        # print(f"Getting advances for: {date}")
 
-    def get_advances(self, date: datetime.date, advances_ids: list, mandate_to_advances: dict) -> None:
-        #print(f"Getting advances for: {date}")
+        response = Utils.execute_get_request(
+            Constants.ADVANCES_ENDPOINT, str(date)
+        ).json()
 
-        response = Utils.execute_get_request(Constants.ADVANCES_ENDPOINT, str(date)).json()
-
-        for adv in response["advances"]:            
-            if adv["id"] not in advances_ids:                
+        for adv in response["advances"]:
+            if adv["id"] not in advances_ids:
                 advances_ids.add(adv["id"])
                 mandate_to_advances[adv["mandate_id"]].add(
-                    AdvanceDto(adv["id"], adv["customer_id"], adv["created"],
-                        adv["total_advanced"], adv["fee"], adv["mandate_id"],
-                        adv["repayment_start_date"], adv["repayment_percentage"])
+                    AdvanceDto(
+                        adv["id"],
+                        adv["customer_id"],
+                        adv["created"],
+                        adv["total_advanced"],
+                        adv["fee"],
+                        adv["mandate_id"],
+                        adv["repayment_start_date"],
+                        adv["repayment_percentage"],
                     )
+                )
 
-
-    def update_mandates_advances(self, mandate_to_advances: dict, mandates: dict) -> None:
-        #print("Updating customers advances...")
+    def update_mandates_advances(
+        self, mandate_to_advances: dict, mandates: dict
+    ) -> None:
+        # print("Updating customers advances...")
 
         for mandate_id, advs in mandate_to_advances.items():
             if mandate_id not in mandates.keys():
@@ -32,25 +43,11 @@ class LoadDataService:
             else:
                 mandates[mandate_id].advances = advs
 
-                
-    '''
-    def update_debts(self, mandates: dict) -> None:
-        #print("Updating customers debts...")
-
-        for cust in mandates.values():
-            debt = 0
-            for adv in cust.advances:
-                if adv.repaid == False:                
-                    debt += adv.to_be_paid - adv.total_paid
-            cust.debt = debt
-    '''
-            
-
     def get_revenue_for_date(self, date: datetime.date, mandates: dict) -> None:
-        #print(f"Retrieving revenues...")    
+        # print(f"Retrieving revenues...")
 
         for cust in mandates.values():
-            
+
             charging_dates = cust.dates_without_revenue[:]
             charging_dates.append(date - timedelta(1))
 
@@ -58,17 +55,20 @@ class LoadDataService:
 
             for charge_date in charging_dates[:]:
 
-                response = Utils.execute_get_request(Constants.REVENUES_ENDPOINT(cust.id, str(charge_date)), str(date))
+                response = Utils.execute_get_request(
+                    Constants.REVENUES_ENDPOINT(cust.id, str(charge_date)), str(date)
+                )
 
                 if response:
-                    #print(response.json(), charge_date) 
-                    cust.revenues.append(RevenueDto(response.json()["amount"], charge_date))
+                    # print(response.json(), charge_date)
+                    cust.revenues.append(
+                        RevenueDto(response.json()["amount"], charge_date)
+                    )
                     charging_dates.remove(charge_date)
-                    #print("OK, days left: ", charging_dates)
+                    # print("OK, days left: ", charging_dates)
                 else:
-                    #print(response)
-                    print("KO, days left: ", charging_dates)
+                    # print(response)
+                    # print("KO, days left: ", charging_dates)
                     pass
 
             cust.dates_without_revenue = charging_dates
-    
