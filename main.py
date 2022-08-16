@@ -22,7 +22,7 @@ def main():
         api_call_response = data_load.get_advances(today)
         data_load.load_advances(api_call_response, advances_ids, mandate_to_advances)
         data_load.update_mandates_advances(mandate_to_advances, mandates)
-        data_load.get_revenue_for_date(today, mandates, timedelta(1))
+        data_load.get_revenue_for_date(today, mandates)
 
         # run billing
         for mandate in mandates.values():
