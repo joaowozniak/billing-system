@@ -1,6 +1,11 @@
 from datetime import datetime
 from .revenue_dto import RevenueDto
 
+"""
+Class MandateDto that maps the list of advances for a given mandate. 
+Also keeps track of daily business revenues and of uncontrolled not debited revenues percentage.
+"""
+
 
 class MandateDto:
     def __init__(self, id: int, advances: list):

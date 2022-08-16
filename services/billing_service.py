@@ -4,7 +4,7 @@ from utils.utils import Utils
 from utils.contants import Constants
 import json
 
-
+# TODO testing this service by mocking http requests
 class BillingService:
     def run_billing(self, date: datetime.date, mandate: MandateDto) -> None:
         # print("Starting billing...")

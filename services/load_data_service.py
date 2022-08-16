@@ -45,18 +45,15 @@ class LoadDataService:
             else:
                 mandates[mandate_id].advances = advs
 
+    # TODO testing this service by mocking http requests
     def get_revenue_for_date(self, date: datetime.date, mandates: dict) -> None:
         # print(f"Retrieving revenues...")
 
         for cust in mandates.values():
-
             charging_dates = cust.dates_without_revenue[:]
             charging_dates.append(date - timedelta(1))
-
-            print(f"Customer Id: {cust.id} missing revenue dates {charging_dates}")
-
+            # print(f"Customer Id: {cust.id} missing revenue dates {charging_dates}")
             for charge_date in charging_dates[:]:
-
                 response = Utils.execute_get_request(
                     Constants.REVENUES_ENDPOINT(cust.id, str(charge_date)), str(date)
                 )

@@ -3,6 +3,11 @@ import json
 from utils.utils import Utils
 from utils.contants import Constants
 
+"""
+Class AdvanceDto that maps the advance info and keeps track of payment status.
+Notifies API once it reaches full repayment.
+"""
+
 
 class AdvanceDto:
     def __init__(
