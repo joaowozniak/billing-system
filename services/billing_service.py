@@ -7,7 +7,6 @@ import json
 # TODO testing this service by mocking http requests
 class BillingService:
     def run_billing(self, date: datetime.date, mandate: MandateDto) -> None:
-        print("Starting billing...")
 
         for revenue in mandate.get_not_debited_revenues():
 
@@ -15,7 +14,7 @@ class BillingService:
 
             for advance in mandate.get_active_advances(revenue.date):
 
-                #print("Advance ID:", advance.id)
+                print("Starting billing Advance ID:", advance.id)
                 debited_amount = round(
                     rev_amount * advance.repayment_percentage / 100, 2
                 )
@@ -39,7 +38,7 @@ class BillingService:
                 )
 
                 if response:
-                    # print(response)
+                    print(response)
                     revenue.debited = True
                     rev_amount -= debited_amount
                     advance.pay_amount(date, debited_amount)
