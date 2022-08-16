@@ -1,7 +1,7 @@
 import requests
 
 """
-class utils
+Utils class with the HTTP get and post methods
 """
 
 
