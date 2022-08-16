@@ -10,7 +10,7 @@ def main():
 
     data_load = LoadDataService()
     billing_service = BillingService()
-    customer_to_advances = defaultdict(set)
+    mandate_to_advances = defaultdict(set)
     advances_ids = set()
     mandates = defaultdict(None)
 
@@ -19,8 +19,8 @@ def main():
 
         # load daily data
         api_call_response = data_load.get_advances(today)
-        data_load.load_advances(api_call_response, advances_ids, customer_to_advances)
-        data_load.update_mandates_advances(customer_to_advances, mandates)
+        data_load.load_advances(api_call_response, advances_ids, mandate_to_advances)
+        data_load.update_mandates_advances(mandate_to_advances, mandates)
         data_load.get_revenue_for_date(today, mandates)
 
         # run billing
