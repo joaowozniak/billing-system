@@ -36,7 +36,6 @@ class BillingService:
                 if response:
                     print(response)
                     revenue.debited = True
-                    rev_amount -= debited_amount
                     advance.pay_amount(date, debited_amount)
 
                 else:
