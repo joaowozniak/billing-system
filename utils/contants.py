@@ -1,10 +1,5 @@
 import datetime
 
-"""
-class of constants
-"""
-
-
 class Constants:
 
     BILLING_URL = "https://billing.eng-test.wayflyer.com/v2"
