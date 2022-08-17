@@ -23,14 +23,7 @@ class MandateDto:
                 active_advances.append(advance)
 
         return active_advances
-
-    def get_revenue_by_day(self, day: datetime.date) -> RevenueDto:
-
-        for revenue in self.revenues:
-            if revenue.date == str(day):
-                return revenue
-
-        return None
+        
 
     def get_not_debited_revenues(self) -> list:
 
