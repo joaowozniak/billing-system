@@ -16,7 +16,7 @@ class LoadDataService:
 
         return response
 
-    def load_advances(self, response, advances_ids: set, mandate_to_advances: dict):
+    def load_advances(self, response, advances_ids: set, mandate_to_advances: dict) -> None:
 
         for adv in response["advances"]:
             if adv["id"] not in advances_ids:
